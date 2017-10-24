@@ -85,15 +85,13 @@ module.exports = {
       <br/><br/>
       Please verify your email by typing the following token:
       <br/>
-      Token: <b>${secretToken}</b>
-      <br/>
       On the following page:
-      <a href="http://localhost:5000/users/verify">http://localhost:5000/users/verify</a>
+      <a href="http://localhost:5000/users/verify?access_token=`+ secretToken + `">http://localhost:5000/users/verify?access_token=` + secretToken +`</a>
       <br/><br/>
       Have a pleasant day.`
         const msg = {
           to: 'nguyenvinh.fit@gmail.com',
-          from: 'noreply@gmail.com',
+          from: 'nguyenvinh.fit@gmail.com',
           subject: 'Email-verifications from Managela',
           text: 'Thank to use my service.I love you',
           html: html5
@@ -105,9 +103,10 @@ module.exports = {
     },
 
     Verify_Login: async(req, res, next) => {
+        console.log('ok');
         try {
-            const { secretToken } = req.body;
-
+            const secretToken = req.query.access_token;
+        
             // Find account with matching secret token
             const user = await User.findOne({ 'secretToken': secretToken });
             if (!user) {
@@ -117,7 +116,7 @@ module.exports = {
             }
 
             user.active = true;
-            user.secretToken = '';
+            user.secretToken = secretToken;
             await user.save();
 
             req.flash('success', 'Thank you! Now you may login.');

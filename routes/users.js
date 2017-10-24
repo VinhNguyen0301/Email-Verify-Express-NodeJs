@@ -34,10 +34,7 @@ router.route('/dashboard')
     });
 
 router.route('/verify')
-    .get(uscontroller.isNotAuthenticated, (req, res) => {
-        res.render('verify');
-    })
-    .post(uscontroller.Verify_Login)
+    .get(uscontroller.Verify_Login)
 
 router.route('/logout')
     .get(uscontroller.isAuthenticated, (req, res) => {
