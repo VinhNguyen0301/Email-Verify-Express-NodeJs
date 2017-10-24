@@ -6,12 +6,9 @@ const randomstring = require('randomstring');
 
 const User = require('../models/user');
 const uscontroller = require('../controller/userController');
-const sendgrid = require('sendgrid')(process.env.U,process.env.PASSWORD);
 // Validation Schema
 
 // Authorization 
-
-
 
 router.route('/register')
     .get(uscontroller.isNotAuthenticated, (req, res) => {
@@ -48,10 +45,6 @@ router.route('/logout')
         req.flash('success', 'Successfully logged out. Hope to see you soon!');
         res.redirect('/');
     })
-
-
-
-
 
 
 module.exports = router;
