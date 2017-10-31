@@ -78,6 +78,8 @@ module.exports = {
     //console.log(process.env.SENDGRID_API_KEY)
         const sgMail = require('@sendgrid/mail');
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        const email = req.body.email;
+        console.log('email: '+email);
          // Compose email
         const html5 = `Hi there,
       <br/>
@@ -90,7 +92,7 @@ module.exports = {
       <br/><br/>
       Have a pleasant day.`
         const msg = {
-          to: 'nguyenvinh.fit@gmail.com',
+          to: email,
           from: 'nguyenvinh.fit@gmail.com',
           subject: 'Email-verifications from Managela',
           text: 'Thank to use my service.I love you',
